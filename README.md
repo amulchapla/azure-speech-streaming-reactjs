@@ -28,17 +28,17 @@ This sample uses Express.js backend framework which allows you to make http call
     -	Update the “.env” file with your Azure Speech service key and Azure region. Region value examples: “eastus2”, “westus”
     -	Start Speech service backend app by running ‘npm start’
     -	If you are running this locally then try accessing below URLs from browser to verify that the backend component is working as expected
-    *	http://localhost:8080/api/sayhello
-    *	http://localhost:8080/api/get-speech-token
+        *	`http://localhost:8080/api/sayhello`
+        *	`http://localhost:8080/api/get-speech-token`
     -	If you have deployed speechexpressbacked app to Azure App Service (as per instructions below) then you can verify using URLs from browser as below:
-    *	https://<<your backend Azure App service name>>/api/sayhello
-    *	https://<<your backend Azure App service name>>/api/get-speech-token
+        *	`https://<<your backend Azure App service name>>/api/sayhello`
+        *	`https://<<your backend Azure App service name>>/api/get-speech-token`
 3.	Prepare and run the Speech client React.js frontend
     +	Go to speechreactfrontend directory and run `npm install` to install dependencies.
     +	Update “package.json” as following. Set value of “proxy” depending on where your Express.js backend is running. 
-    +	If Express.js backend “speechexpressbacked” running on local machine then use "proxy": "http://localhost:8080"
+    +	If Express.js backend “speechexpressbacked” running on local machine then use `"proxy": "http://localhost:8080"`
     +	If Express.js backend “speechexpressbacked”running on Azure. Use "proxy": https://<<your backend Azure App service name>>.azurewebsites.net
-    +	Open a browser and go to http://localhost:3000 to access the app. Click on the microphone icon on the web page and start talking. You should see transcription displayed on the web page in real-time (an example shown below).
+    +	Open a browser and go to `http://localhost:3000` to access the app. Click on the microphone icon on the web page and start talking. You should see transcription displayed on the web page in real-time (an example shown below).
 
     <img src="common/images/sampleoutputrealtimetranscription.PNG " align="center" />
 
@@ -46,19 +46,26 @@ This sample uses Express.js backend framework which allows you to make http call
 
 
 
-# Deploying sample code to Azure App Service
+## Deploying sample code to Azure App Service
 You can deploy your Node.js app using VS Code and the Azure App Service extension. Follow instructions [Deploy using Azure App Service] (https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=platform-linux#deploy-to-azure) that explains how to deploy any node app to Azure App Service. 
 
 * To deploy **speechexpressbacked** to Azure App Service, select the “speechexpressbacked” as the root folder when prompted in the VS code. 
 - Validate that your ExpressJS backend is successfully deployed by trying to access one of the two APIs hosted by your backend
-- https://<<your backend Azure App service name>>/api/sayhello
-- https://<<your backend Azure App service name>>/api/get-speech-token
+- `https://<<your backend Azure App service name>>/api/sayhello`
+- `https://<<your backend Azure App service name>>/api/get-speech-token`
 
 * Similarly, you can deploy **speechreactfrontend** to another Azure App Service instance by selecting the root folder for this app. This sample assumes that you are deploying the frontend and the backend app on a **separate** app service instance.
-- Before deploying your “speechreactfrontend”, update “package.json”. Set the value of “proxy” pointing it to the “speechexpressbacked” App Service URL. Use "proxy": https://<<your backend Azure App service name>>.azurewebsites.net
+- Before deploying your “speechreactfrontend”, update “package.json”. Set the value of “proxy” pointing it to the “speechexpressbacked” App Service URL. Use `"proxy": https://<<your backend Azure App service name>>.azurewebsites.net`
 - Deploy your frontend after updating package.json.
 - You should now be able to access the web app and do real-time transcription from a browser as shown in the example below. 
 <img src="common/images/sampleoutputrealtimetranscription.PNG " align="center" />
+
+## Issues and resolutions
+
+| Issues/Errors | Resolutions |
+| :-------------| :-----------|
+| **Invalid Host Header** error in the browser when running the React Front end | Add DANGEROUSLY_DISABLE_HOST_CHECK=true in the .env for the front end. This solution is not recommended for production deployment. This is to enable a quick demonstration of real-time speech streaming capability using the web browser. |
+|Express.js backend API not accessible when deployed to Azure app service. | Verify that the port used by the express backend (in serverapp.js) is using value `‘process.env.WEB_PORT || 8080’`|
 
 
 ## Change recognition language
