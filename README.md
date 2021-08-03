@@ -47,18 +47,17 @@ This sample uses Express.js backend framework which allows you to make http call
 
 
 ## Deploying sample code to Azure App Service
-You can deploy your Node.js app using VS Code and the Azure App Service extension. Follow instructions [Deploy using Azure App Service]:https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=platform-linux#deploy-to-azure that explains how to deploy any node app to Azure App Service. 
+You can deploy your Node.js app using VS Code and the Azure App Service extension. Follow instructions [Deploy NodeJS using Azure App Service]:https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=platform-linux#deploy-to-azure that explains how to deploy any node app to Azure App Service. 
 
 * To deploy **speechexpressbacked** to Azure App Service, select the “speechexpressbacked” as the root folder when prompted in the VS code. 
-- Validate that your ExpressJS backend is successfully deployed by trying to access one of the two APIs hosted by your backend
-- `https://<<your backend Azure App service name>>/api/sayhello`
-- `https://<<your backend Azure App service name>>/api/get-speech-token`
+    - Validate that your ExpressJS backend is successfully deployed by trying to access one of the two APIs hosted by your backend
+    - `https://<<your backend Azure App service name>>/api/sayhello`
+    - `https://<<your backend Azure App service name>>/api/get-speech-token`
 
 * Similarly, you can deploy **speechreactfrontend** to another Azure App Service instance by selecting the root folder for this app. This sample assumes that you are deploying the frontend and the backend app on a **separate** app service instance.
-- Before deploying your “speechreactfrontend”, update “package.json”. Set the value of “proxy” pointing it to the “speechexpressbacked” App Service URL. Use `"proxy": https://<<your backend Azure App service name>>.azurewebsites.net`
-- Deploy your frontend after updating package.json.
-- You should now be able to access the web app and do real-time transcription from a browser as shown in the example below. 
-<img src="common/images/sampleoutputrealtimetranscription.PNG " align="center" />
+    - Before deploying your “speechreactfrontend”, update “package.json”. Set the value of “proxy” pointing it to the “speechexpressbacked” App Service URL. Use `"proxy": https://<<your backend Azure App service name>>.azurewebsites.net`
+    - Deploy your frontend after updating package.json.
+    - You should now be able to access the web app and do real-time transcription from a browser from your mobile phone or any other device that can access the app service url. 
 
 ## Issues and resolutions
 
