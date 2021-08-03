@@ -19,35 +19,35 @@ This sample uses Express.js backend framework which allows you to make http call
 ## How to run the app
 
 1. Clone this repo. This repo has two apps as shown in the architecture diagram above: 
-* speechreactfrontend folder is for the "ReactJS Frontend" component and
-* speechexpressbackend folder is for the "ExpressJS Backend" component 
+    * speechreactfrontend folder is for the "ReactJS Frontend" component and
+    * speechexpressbackend folder is for the "ExpressJS Backend" component 
 
 
-2. Prepare and run the Speech service Express.js backend
+2. **Prepare and run the Speech service Express.js backend**
     -	Go to speechexpressbacked directory and run `npm install` to install dependencies.
-    -	Update the “.env” file with your Azure Speech service key and Azure region. Region value examples: “eastus2”, “westus”
-    -	Start Speech service backend app by running ‘npm start’
+    -	Update the “.env” file with your Azure Speech service key and Azure region. Azure Region value examples: “eastus2”, “westus”
+    -	Start Speech service backend app by running `‘npm start’`
     -	If you are running this locally then try accessing below URLs from browser to verify that the backend component is working as expected
         *	`http://localhost:8080/api/sayhello`
         *	`http://localhost:8080/api/get-speech-token`
     -	If you have deployed speechexpressbacked app to Azure App Service (as per instructions below) then you can verify using URLs from browser as below:
         *	`https://<<your backend Azure App service name>>/api/sayhello`
         *	`https://<<your backend Azure App service name>>/api/get-speech-token`
-3.	Prepare and run the Speech client React.js frontend
+3.	**Prepare and run the Speech client React.js frontend**
     +	Go to speechreactfrontend directory and run `npm install` to install dependencies.
     +	Update “package.json” as following. Set value of “proxy” depending on where your Express.js backend is running. 
     +	If Express.js backend “speechexpressbacked” running on local machine then use `"proxy": "http://localhost:8080"`
-    +	If Express.js backend “speechexpressbacked”running on Azure. Use "proxy": https://<<your backend Azure App service name>>.azurewebsites.net
+    +	If Express.js backend “speechexpressbacked”running on Azure. Use `"proxy": https://<<your backend Azure App service name>>.azurewebsites.net`
     +	Open a browser and go to `http://localhost:3000` to access the app. Click on the microphone icon on the web page and start talking. You should see transcription displayed on the web page in real-time (an example shown below).
 
     <img src="common/images/sampleoutputrealtimetranscription.PNG " align="center" />
 
-    +	If you have also deployed the frontend ReactJS to Azure App Service then use the deployed app service URL which you can find on Azure portal for your App Service. Example: https://myspeechreactfrontend.azurewebsites.net
+    +	If you have also deployed the frontend ReactJS to Azure App Service then use the deployed app service URL which you can find on Azure portal for your App Service. Example: `https://myspeechreactfrontend.azurewebsites.net`
 
 
 
 ## Deploying sample code to Azure App Service
-You can deploy your Node.js app using VS Code and the Azure App Service extension. Follow instructions [Deploy using Azure App Service] (https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=platform-linux#deploy-to-azure) that explains how to deploy any node app to Azure App Service. 
+You can deploy your Node.js app using VS Code and the Azure App Service extension. Follow instructions [Deploy using Azure App Service]:https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=platform-linux#deploy-to-azure that explains how to deploy any node app to Azure App Service. 
 
 * To deploy **speechexpressbacked** to Azure App Service, select the “speechexpressbacked” as the root folder when prompted in the VS code. 
 - Validate that your ExpressJS backend is successfully deployed by trying to access one of the two APIs hosted by your backend
@@ -65,7 +65,7 @@ You can deploy your Node.js app using VS Code and the Azure App Service extensio
 | Issues/Errors | Resolutions |
 | :-------------| :-----------|
 | **Invalid Host Header** error in the browser when running the React Front end | Add DANGEROUSLY_DISABLE_HOST_CHECK=true in the .env for the front end. This solution is not recommended for production deployment. This is to enable a quick demonstration of real-time speech streaming capability using the web browser. |
-|Express.js backend API not accessible when deployed to Azure app service. | Verify that the port used by the express backend (in serverapp.js) is using value `‘process.env.WEB_PORT || 8080’`|
+|Express.js backend API not accessible when deployed to Azure app service. | Verify that the port used by the express backend (in serverapp.js) is using value <code>‘process.env.WEB_PORT &#124;&#124; 8080’ </code>|
 
 
 ## Change recognition language
