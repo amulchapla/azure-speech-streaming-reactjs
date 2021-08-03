@@ -5,7 +5,7 @@ This sample shows how to integrate the Azure Speech service into a sample React 
 Below architecture diagram depicts key components and API/communication sequence used in this sample
 <img src="common/images/speechstreamingdiagram.PNG" align="center" />
 
-This sample uses Express.js backend framework. It allows you to make http calls from any front end. This tutorial is using ReactJS frontend. *NOTE*: This tutorial is only using the Azure Speech SDK. This tutorial does not use Azure Bot Service and Direct Line Speech channel.
+This sample uses Express.js backend framework which allows you to make http calls from any front end. ReactJS is used for frontend app. *NOTE*: This sample is only using the Azure Speech SDK - it does not use Azure Bot Service and Direct Line Speech channel.
 
 * **Express.js**: Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. It facilitates the rapid development of Node based web applications.
 
@@ -24,24 +24,41 @@ This sample uses Express.js backend framework. It allows you to make http calls 
 
 
 2. Prepare and run the Speech service Express.js backend
-    i.	Go to speechexpressbacked directory and run `npm install` to install dependencies.
-    ii.	Update the “.env” file with your Azure Speech service key and Azure region. Region value examples: “eastus2”, “westus”
-    iii.	Start Speech service backend app by running ‘npm start’
-    iv.	If you are running this locally then try accessing below URLs from browser to verify that the backend component is working as expected
+    -	Go to speechexpressbacked directory and run `npm install` to install dependencies.
+    -	Update the “.env” file with your Azure Speech service key and Azure region. Region value examples: “eastus2”, “westus”
+    -	Start Speech service backend app by running ‘npm start’
+    -	If you are running this locally then try accessing below URLs from browser to verify that the backend component is working as expected
     *	http://localhost:8080/api/sayhello
     *	http://localhost:8080/api/get-speech-token
-    v.	If you have deployed speechexpressbacked app to Azure App Service (as per instructions below) then you can verify using URLs from browser as below:
+    -	If you have deployed speechexpressbacked app to Azure App Service (as per instructions below) then you can verify using URLs from browser as below:
     *	https://<<your backend Azure App service name>>/api/sayhello
     *	https://<<your backend Azure App service name>>/api/get-speech-token
 3.	Prepare and run the Speech client React.js frontend
-    i.	Go to speechreactfrontend directory and run `npm install` to install dependencies.
-    ii.	Update “package.json” as following. Set value of “proxy” depending on where your Express.js backend is running. 
-    *.	If Express.js backend “speechexpressbacked” running on local machine then use "proxy": "http://localhost:8080"
-    *.	If Express.js backend “speechexpressbacked”running on Azure. Use "proxy": https://<<your backend Azure App service name>>.azurewebsites.net
-    iii.	Open a browser and go to http://localhost:3000 to access the app. Click on the microphone icon on the web page and start talking. You should see transcription displayed on the web page in real-time (an example shown below).
-    <img src="common/images/sampleoutputrealtimetranscription.PNG " align="center" />
-    iv.	If you have also deployed the frontend ReactJS to Azure App Service then use the deployed app service URL which you can find on Azure portal for your App Service. Example: https://myspeechreactfrontend.azurewebsites.net
+    +	Go to speechreactfrontend directory and run `npm install` to install dependencies.
+    +	Update “package.json” as following. Set value of “proxy” depending on where your Express.js backend is running. 
+    +	If Express.js backend “speechexpressbacked” running on local machine then use "proxy": "http://localhost:8080"
+    +	If Express.js backend “speechexpressbacked”running on Azure. Use "proxy": https://<<your backend Azure App service name>>.azurewebsites.net
+    +	Open a browser and go to http://localhost:3000 to access the app. Click on the microphone icon on the web page and start talking. You should see transcription displayed on the web page in real-time (an example shown below).
 
+    <img src="common/images/sampleoutputrealtimetranscription.PNG " align="center" />
+
+    +	If you have also deployed the frontend ReactJS to Azure App Service then use the deployed app service URL which you can find on Azure portal for your App Service. Example: https://myspeechreactfrontend.azurewebsites.net
+
+
+
+# Deploying sample code to Azure App Service
+You can deploy your Node.js app using VS Code and the Azure App Service extension. Follow instructions [Deploy using Azure App Service] (https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=platform-linux#deploy-to-azure) that explains how to deploy any node app to Azure App Service. 
+
+* To deploy **speechexpressbacked** to Azure App Service, select the “speechexpressbacked” as the root folder when prompted in the VS code. 
+- Validate that your ExpressJS backend is successfully deployed by trying to access one of the two APIs hosted by your backend
+- https://<<your backend Azure App service name>>/api/sayhello
+- https://<<your backend Azure App service name>>/api/get-speech-token
+
+* Similarly, you can deploy **speechreactfrontend** to another Azure App Service instance by selecting the root folder for this app. This sample assumes that you are deploying the frontend and the backend app on a **separate** app service instance.
+- Before deploying your “speechreactfrontend”, update “package.json”. Set the value of “proxy” pointing it to the “speechexpressbacked” App Service URL. Use "proxy": https://<<your backend Azure App service name>>.azurewebsites.net
+- Deploy your frontend after updating package.json.
+- You should now be able to access the web app and do real-time transcription from a browser as shown in the example below. 
+<img src="common/images/sampleoutputrealtimetranscription.PNG " align="center" />
 
 
 ## Change recognition language
