@@ -1,6 +1,18 @@
-# React Speech service sample app
+# Real-time Transcription using Azure Speech in ReactJS
 
 This sample shows how to integrate the Azure Speech service into a sample React application. This sample shows design pattern examples for authentication token exchange and management, as well as capturing audio from a microphone or file for speech-to-text conversions.
+
+This sample uses Express.js backend framework. It allows you to make http calls from any front end. This tutorial is using ReactJS frontend.
+
+* **Express.js**: Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. It facilitates the rapid development of Node based web applications.
+
+* **React.js** often referred to as React or ReactJS is a JavaScript library responsible for building a hierarchy of UI components or in other words, responsible for the rendering of UI components. It provides support for both frontend and server-side.
+
+
+*NOTE*: This tutorial is only using the Azure Speech SDK. This tutorial does not use Azure Bot Service and Direct Line Speech channel.
+
+Below diagram depicts key components and API/communication sequence
+<img src="common/images/speechstreamingdiagram.PNG" align="center" />
 
 ## Prerequisites
 
