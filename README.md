@@ -2,17 +2,14 @@
 
 This sample shows how to integrate the Azure Speech service into a sample React application. This sample shows design pattern examples for authentication token exchange and management, as well as capturing audio from a microphone or file for speech-to-text conversions.
 
-This sample uses Express.js backend framework. It allows you to make http calls from any front end. This tutorial is using ReactJS frontend.
+Below architecture diagram depicts key components and API/communication sequence used in this sample
+<img src="common/images/speechstreamingdiagram.PNG" align="center" />
+
+This sample uses Express.js backend framework. It allows you to make http calls from any front end. This tutorial is using ReactJS frontend. *NOTE*: This tutorial is only using the Azure Speech SDK. This tutorial does not use Azure Bot Service and Direct Line Speech channel.
 
 * **Express.js**: Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. It facilitates the rapid development of Node based web applications.
 
 * **React.js** often referred to as React or ReactJS is a JavaScript library responsible for building a hierarchy of UI components or in other words, responsible for the rendering of UI components. It provides support for both frontend and server-side.
-
-
-*NOTE*: This tutorial is only using the Azure Speech SDK. This tutorial does not use Azure Bot Service and Direct Line Speech channel.
-
-Below diagram depicts key components and API/communication sequence
-<img src="common/images/speechstreamingdiagram.PNG" align="center" />
 
 ## Prerequisites
 
@@ -21,9 +18,31 @@ Below diagram depicts key components and API/communication sequence
 
 ## How to run the app
 
-1. Clone this repo, then change directory to the project root and run `npm install` to install dependencies.
-1. Add your Azure Speech key and region to the `.env` file, replacing the placeholder text.
-1. To run the Express server and React app together, run `npm run dev`.
+1. Clone this repo. This repo has two apps as shown in the architecture diagram above: 
+* speechreactfrontend folder is for the "ReactJS Frontend" component and
+* speechexpressbackend folder is for the "ExpressJS Backend" component 
+
+
+2. Prepare and run the Speech service Express.js backend
+    i.	Go to speechexpressbacked directory and run `npm install` to install dependencies.
+    ii.	Update the “.env” file with your Azure Speech service key and Azure region. Region value examples: “eastus2”, “westus”
+    iii.	Start Speech service backend app by running ‘npm start’
+    iv.	If you are running this locally then try accessing below URLs from browser to verify that the backend component is working as expected
+    *	http://localhost:8080/api/sayhello
+    *	http://localhost:8080/api/get-speech-token
+    v.	If you have deployed speechexpressbacked app to Azure App Service (as per instructions below) then you can verify using URLs from browser as below:
+    *	https://<<your backend Azure App service name>>/api/sayhello
+    *	https://<<your backend Azure App service name>>/api/get-speech-token
+3.	Prepare and run the Speech client React.js frontend
+    i.	Go to speechreactfrontend directory and run `npm install` to install dependencies.
+    ii.	Update “package.json” as following. Set value of “proxy” depending on where your Express.js backend is running. 
+    *.	If Express.js backend “speechexpressbacked” running on local machine then use "proxy": "http://localhost:8080"
+    *.	If Express.js backend “speechexpressbacked”running on Azure. Use "proxy": https://<<your backend Azure App service name>>.azurewebsites.net
+    iii.	Open a browser and go to http://localhost:3000 to access the app. Click on the microphone icon on the web page and start talking. You should see transcription displayed on the web page in real-time (an example shown below).
+    <img src="common/images/sampleoutputrealtimetranscription.PNG " align="center" />
+    iv.	If you have also deployed the frontend ReactJS to Azure App Service then use the deployed app service URL which you can find on Azure portal for your App Service. Example: https://myspeechreactfrontend.azurewebsites.net
+
+
 
 ## Change recognition language
 
